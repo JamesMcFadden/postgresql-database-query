@@ -1,10 +1,8 @@
 # launchlog/queries.py
-from .db import get_connection, get_cursor_dict
+from .db import get_connection
+
 
 def list_launches(limit: int | None = None):
-    conn = get_connection()
-    cur = get_cursor_dict(conn)
-
     sql = """
         SELECT l.mission_name, l.launch_date,
                a.name AS agency, r.name AS rocket,
@@ -15,22 +13,21 @@ def list_launches(limit: int | None = None):
         ORDER BY l.launch_date DESC
     """
 
-    params = []
-    if limit:
+    params: list[object] = []
+    if limit is not None:
         sql += " LIMIT %s"
         params.append(limit)
 
-    cur.execute(sql, params)
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql, params)
+            rows = cur.fetchall()
+
+    # thanks to row_factory=dict_row, each row is a dict-like object
     return rows
 
-def launches_by_year(year: int):
-    conn = get_connection()
-    cur = get_cursor_dict(conn)
 
-    # launch_date is DATE, so cast to text and use substring
+def launches_by_year(year: int):
     sql = """
         SELECT mission_name, launch_date, destination, outcome
         FROM launches
@@ -38,16 +35,15 @@ def launches_by_year(year: int):
         ORDER BY launch_date;
     """
 
-    cur.execute(sql, (year,))
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql, (year,))
+            rows = cur.fetchall()
+
     return rows
 
-def success_rate_by_agency():
-    conn = get_connection()
-    cur = get_cursor_dict(conn)
 
+def success_rate_by_agency():
     sql = """
         SELECT
             a.name AS agency,
@@ -63,8 +59,9 @@ def success_rate_by_agency():
         ORDER BY success_rate_pct DESC;
     """
 
-    cur.execute(sql)
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql)
+            rows = cur.fetchall()
+
     return rows
