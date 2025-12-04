@@ -48,9 +48,11 @@ def success_rate_by_agency():
         SELECT
             a.name AS agency,
             COUNT(*) AS total_launches,
-            SUM(CASE WHEN l.outcome = 'success' THEN 1 ELSE 0 END) AS successful_launches,
+            SUM(CASE WHEN l.outcome = 'success' THEN 1 ELSE 0 END) \
+            AS successful_launches,
             ROUND(
-                100.0 * SUM(CASE WHEN l.outcome = 'success' THEN 1 ELSE 0 END) / COUNT(*),
+                100.0 * SUM(CASE WHEN l.outcome = 'success' THEN \
+                1 ELSE 0 END) / COUNT(*),
                 2
             ) AS success_rate_pct
         FROM launches l

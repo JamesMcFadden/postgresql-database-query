@@ -1,5 +1,7 @@
 import argparse
-from . import queries
+
+import launchlog.queries
+
 
 def main():
     parser = argparse.ArgumentParser(description="Space Launch Log CLI")
@@ -45,14 +47,3 @@ def main():
                 f"{row['agency']}: {row['successful_launches']}/"
                 f"{row['total_launches']} = {row['success_rate_pct']}% success"
             )
-
-    elif args.command == "dest":
-        rows = queries.launches_to_destination(args.destination)
-        if not rows:
-            print(f"No launches to {args.destination!r}")
-        else:
-            for row in rows:
-                print(
-                    f"{row['launch_date']} | {row['mission_name']} "
-                    f"({row['agency']})"
-                )

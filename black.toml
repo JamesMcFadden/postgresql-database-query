@@ -1,0 +1,25 @@
+# black.toml
+# Standalone configuration for Black (instead of pyproject.toml)
+
+line-length = 88
+target-version = ["py313"]
+include = "db|launchlog"
+
+# Folders Black should NOT touch
+exclude = '''
+(
+    /(\.eggs)|
+    /(\.egg-info)|
+    /(\.pytest_cache)|
+    /(\.mypy_cache)|
+    /(\.idea)|
+    /(\.vscode)|
+    /(\.git)|
+    /__pycache__|
+    /build|
+    /dist|
+    /venv|
+    /(\.venv)
+)
+'''
+

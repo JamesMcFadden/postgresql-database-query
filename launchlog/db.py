@@ -1,7 +1,9 @@
 # launchlog/db.py (psycopg 3 version)
 import os
+
 import psycopg
 from psycopg.rows import dict_row
+
 
 def get_connection():
     conn = psycopg.connect(
