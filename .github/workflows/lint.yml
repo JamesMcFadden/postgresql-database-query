@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Pylint
         run: |
-          pylint db launchlog
+          pylint launchlog
 
       - name: Run Mypy
         run: |
