@@ -1,0 +1,2 @@
+[console_scripts]
+launchlog-cli = launchlog.cli:main

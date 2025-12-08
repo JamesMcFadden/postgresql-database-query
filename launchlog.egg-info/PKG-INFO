@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: launchlog
+Version: 0.1.0
+Summary: Space launch log demo app with PostgreSQL backend
+Author: James McFadden
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+Requires-Dist: psycopg[binary]>=3.1.0
+Requires-Dist: python-dotenv>=1.0.0
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# postgresql-database-query
+This repository implements a system for querying a postgresql database with a docker setup.
+
+To start docker, run the followig command from root:
+docker-compose up -d
+
+To run:
+python -m launchlog.cli [ARGS]
