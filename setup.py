@@ -13,7 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     author="James McFadden",
     packages=find_packages(exclude=("tests", "tests.*")),
-    python_requires=">=3.13",
+    python_requires=">=3.12",
     install_requires=[
         "psycopg[binary]>=3.1.0",
         "python-dotenv>=1.0.0",
